@@ -1,0 +1,16 @@
+function imshow(i,type)
+
+global rfiles cfiles dfiles
+
+switch type
+    case 'rgb'
+        I = imread([dataset_path rfiles{1}{i}]);
+        imshow(I);
+        break
+    case 'conf'
+        I = imread([dataset_path cfiles{i}]);
+        
+        
+end
+
+end
