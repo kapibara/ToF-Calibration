@@ -29,19 +29,22 @@ calib = calib0;
 
 if(options.color_present)
     [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
-    calib.sigma_dplane = std(cost(comp=='P'));
+    if(options.depth_in_calib)
+        calib.sigma_dplane = std(cost(comp=='P'));
+    else
+        calib.sigma_dplane = 1;
+    end
     calib.sigma_dcorners = std(cost(comp=='C'));
     calib.sigma_rgb = std(cost(comp=='R'));
 else
     [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options);
     calib.sigma_dplane = std(cost(comp=='P'));
     calib.sigma_dcorners = std(cost(comp=='C'));
-    
+    calib.sigma_rgb = 1;
 end
 
 errors = [errors cost];
 
-calib.sigma_dplane = 1;
 errors(comp=='P',:) = errors(comp=='P',:)/calib.sigma_dplane;
 errors(comp=='C',:) = errors(comp=='C',:)/calib.sigma_dcorners;
 errors(comp=='R',:) = errors(comp=='R',:)/calib.sigma_rgb;

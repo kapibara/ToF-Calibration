@@ -23,19 +23,23 @@ disparity = disparity_in;
 
 %Reduce total count
 initial_count = sum(cellfun(@(x) size(x,2),points));
-while(true)
-  counts = cellfun(@(x) size(x,2),points);
-  total_count = sum(counts);
-
-  if(total_count < max_count)
-    break;
-  end
-
-  [~,max_i] = max(counts);
-
-  points{max_i} = points{max_i}(:,1:2:end);
-  disparity{max_i} = disparity{max_i}(:,1:2:end);
-end
+total_count = sum(initial_count);
+% while(true)
+%   counts = cellfun(@(x) size(x,2),points);
+%   total_count = sum(counts);
+% 
+%   if(total_count < max_count)
+%     break;
+%   end
+% 
+%   [~,max_i] = max(counts);
+% 
+%   points{max_i} = points{max_i}(:,1:2:end);
+%   disparity{max_i} = disparity{max_i}(:,1:2:end);
+% end
+select = cellfun(@(x)randperm(length(x),floor(length(x)*max_count/total_count)),points,'UniformOutput',false);
+points = cellfun(@(x,y) x(:,y), points,select,'UniformOutput',false);
+disparity = cellfun(@(x,y) x(:,y), disparity,select,'UniformOutput',false);
 
 % fprintf('done\n');
 if(array_output)
