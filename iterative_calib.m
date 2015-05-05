@@ -1,8 +1,8 @@
 
 options = calibrate_options();
 %% iterative calibration
-global dataset_path conf_grid_p conf_grid_x depth_plane_points depth_plane_disparity calib0 depth_plane_mask
-global dfiles rgb_grid_p rgb_grid_x
+global dataset_path conf_grid_p conf_grid_x depth_plane_points depth_plane_disparity calib0 
+global dfiles rgb_grid_p 
 
 if isempty(dfiles)
     %if needed, select images

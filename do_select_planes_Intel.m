@@ -65,7 +65,7 @@ for i=fidx
   if(isempty(depth_plane_poly{i}))
     depth_plane_mask{i} = false(size(imd));
   else
-    depth_plane_mask{i} = inpolygon(uu,vv,depth_plane_poly{i}(1,:),depth_plane_poly{i}(2,:)) & ~isnan(imd);
+    depth_plane_mask{i} = inpolygon(uu,vv,depth_plane_poly{i}(1,:),depth_plane_poly{i}(2,:));
   end
 end
 fprintf('Done\n');

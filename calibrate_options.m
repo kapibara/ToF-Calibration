@@ -7,9 +7,9 @@
 function options=calibrate_options()
 
 options.display = 'iter'; %No info
-options.correct_depth =0; %use depth correction
+options.correct_depth = 0; %use depth correction
 options.depth_in_calib = 1;%use depth measurements in calibration
 options.color_present = 1; %at least one color camera is present
 options.max_iter = 5;
-%options.read_image = @(I) %custom function
+%options.read_image = @(im_path) <custom function that loads an image>
 options.invalid_depth = 0; %the value used to denote invalid depth values
