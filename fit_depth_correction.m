@@ -1,22 +1,8 @@
 
 function calib = fit_depth_correction(calib)
 
-global conf_grid_p depth_plane_points depth_plane_disparity
-
 %compute error accross images
-error = [];
-depthm = [];
-imxy = [];
-for i=1:length(conf_grid_p)
-    
-    
-    ei = compute_depth_error(calib,i);
-    %error (measured - real)
-    error= [error ei];
-    %image depth, corrds ...
-    depthm = [depthm depth_plane_disparity{i}];
-    imxy = [imxy depth_plane_points{i}];
-end
+[error,depthm,imxy] = compute_full_derror(calib);
 %remove outliers
 valid = abs(error)<60;
 

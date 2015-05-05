@@ -6,9 +6,9 @@ function p3D = depth2world(p, d, calib)
     dc = correct_depth(p, d, calib);
 
     if(isfield(calib,'ckc'))
-        pn = get_dpoint_direction_Intel(p(1,:),p(2,:),calib.cK,calib.ckc);
+        pn = get_dpoint_direction(p(1,:),p(2,:),calib.cK,calib.ckc);
     else
-        pn = get_dpoint_direction_Intel(p(1,:),p(2,:),calib.cK);
+        pn = get_dpoint_direction(p(1,:),p(2,:),calib.cK);
     end
     
     %3D points
