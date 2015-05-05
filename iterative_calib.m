@@ -1,8 +1,8 @@
 
 options = calibrate_options();
 %% iterative calibration
-global conf_grid_p conf_grid_x depth_plane_points depth_plane_disparity rgb_grid_p calib0
-global dfiles
+global dataset_path conf_grid_p conf_grid_x depth_plane_points depth_plane_disparity calib0 depth_plane_mask
+global dfiles rgb_grid_p rgb_grid_x
 
 if isempty(dfiles)
     %if needed, select images
@@ -11,7 +11,14 @@ end
 
 do_process_depth_regions();
 
+%save all markups
+
 do_initial_calib_intel(options);
+
+fprintf('Initial Calibration - done\n');
+fprintf('Saving the variables \n');
+save([dataset_path '/markup.mat'],'conf_grid_p','conf_grid_x','depth_plane_mask','rgb_grid_p','rgb_grid_x');
+
 
 %c = calib0;
 errors = [];

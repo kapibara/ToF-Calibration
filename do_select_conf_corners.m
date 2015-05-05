@@ -1,6 +1,7 @@
 function do_select_conf_corners()
 
 global grid_p grid_x cfiles conf_grid_p conf_grid_x
+global corner_count_x corner_count_y dx
 
 fprintf('-------------------\n');
 fprintf('Selecting conf corners\n');
@@ -15,13 +16,13 @@ use_automatic = false;
 %        end
 %  end
   
-if(~exist('corner_count_x','var'))
+if(isempty(corner_count_x))
       corner_count_x = input('Inner corner count in X direction: ');
       corner_count_y = input('Inner corner count in Y direction: ');
 end
   
 default = 26;
-if(~exist('dx','var'))
+if(isempty(dx))
       dx = input(['Square size ([]=' num2str(default) 'mm): ']);
 end
 if(isempty(dx))

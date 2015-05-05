@@ -4,7 +4,7 @@
 function do_select_rgb_corners()
 
 global grid_p grid_x rfiles rgb_grid_p rgb_grid_x
-
+global corner_count_x corner_count_y dx
 fprintf('-------------------\n');
 fprintf('Selecting rgb corners\n');
 fprintf('-------------------\n');
@@ -15,10 +15,15 @@ if(isempty(rgb_grid_p))
   rgb_grid_x = cell(1,ccount);
 end
 
-
+if(isempty(corner_count_x))
+    corner_count_x = input(['Inner corner count in X direction: ']);
+    corner_count_y = input(['Inner corner count in Y direction: ']);
+end
 %Select pattern dimensions
 default = 26;
-dx = input(['Square size ([]=' num2str(default) 'mm): ']);
+if(isempty(dx))
+    dx = input(['Square size ([]=' num2str(default) 'mm): ']);
+end
 if(isempty(dx))
   dx = default;
 end
@@ -30,9 +35,6 @@ end
 %else
   use_automatic = false;
 %end
-
-corner_count_x = input(['Inner corner count in X direction: ']);
-corner_count_y = input(['Inner corner count in Y direction: ']);
 
 for k=1:ccount
   fprintf('Camera %d\n',k);

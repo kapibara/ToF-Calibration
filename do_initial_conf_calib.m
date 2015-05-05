@@ -2,7 +2,6 @@ function conf_error_var = do_initial_conf_calib(use_fixed_init)
 
 global dataset_path cfiles 
 global conf_grid_p conf_grid_x 
-
 global calib0
 
 if(isempty(conf_grid_p))
