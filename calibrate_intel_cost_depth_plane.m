@@ -7,7 +7,7 @@ function cost = calibrate_intel_cost_depth_plane(calib,depth_plane_points,depth_
     
     for i=find(~cellfun(@(x) isempty(x),depth_plane_points))
 %    for i=1:length(index)
-        
+
     %depth rendering error
         ref_w = render_expected_plane(depth_plane_points{i},calib,calib.cRext{i},calib.ctext{i});  
         

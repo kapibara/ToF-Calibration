@@ -1,4 +1,4 @@
-function [points,disparity]=get_depth_samples(path,dfiles,masks)
+function [points,disparity]=get_depth_samples(path,dfiles,masks,options)
   cell_input = iscell(dfiles);
   if(~cell_input)
     dfiles = {dfiles};
@@ -15,7 +15,7 @@ function [points,disparity]=get_depth_samples(path,dfiles,masks)
       points{i} = zeros(2,0);
       disparity{i} = zeros(1,0);
     else
-      imd = read_disparity([path dfiles{i}]);
+      imd = read_disparity([path dfiles{i}],options);
 
       [points{i}(2,:),points{i}(1,:)] = ind2sub(size(masks{i}),find(masks{i})');
       points{i} = points{i}-1; %Zero based

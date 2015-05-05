@@ -55,9 +55,9 @@ function calib=calibrate_intel(options,calib0)
     tStart = tic();
   
     if(options.color_present)
-        [raw_final,~,~,~,~,~,calib_jacobian] = lsqnonlin(@(x) calibrate_intel_cost_raw(x,calib0,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,rgb_grid_p{1}),raw0,[],[],minimization_options);
+        [raw_final,~,~,~,~,~,calib_jacobian] = lsqnonlin(@(x) calibrate_intel_cost_raw(x,calib0,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1}),raw0,[],[],minimization_options);
     else
-        [raw_final,~,~,~,~,~,calib_jacobian] = lsqnonlin(@(x) calibrate_intel_cost_raw(x,calib0,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p),raw0,[],[],minimization_options);      
+        [raw_final,~,~,~,~,~,calib_jacobian] = lsqnonlin(@(x) calibrate_intel_cost_raw(x,calib0,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options),raw0,[],[],minimization_options);      
     end
     
     tElapsed = toc(tStart);

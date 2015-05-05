@@ -9,7 +9,7 @@ if isempty(dfiles)
     do_select_images_Intel(options);
 end
 
-do_process_depth_regions();
+do_process_depth_regions(options);
 
 %save all markups
 
@@ -28,12 +28,12 @@ iter = 0;
 calib = calib0;
 
 if(options.color_present)
-    [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,rgb_grid_p{1});
+    [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
     calib.sigma_dplane = std(cost(comp=='P'));
     calib.sigma_dcorners = std(cost(comp=='C'));
     calib.sigma_rgb = std(cost(comp=='R'));
 else
-    [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p);
+    [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options);
     calib.sigma_dplane = std(cost(comp=='P'));
     calib.sigma_dcorners = std(cost(comp=='C'));
     
@@ -59,9 +59,9 @@ if(options.correct_depth)
         calib = fit_depth_correction(c);
 
         if(options.color_present)
-            cost = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,rgb_grid_p{1});
+            cost = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
         else
-            [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p);
+            [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options);
         end
 
         errors = [errors cost];
