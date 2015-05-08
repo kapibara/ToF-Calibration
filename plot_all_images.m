@@ -1,4 +1,4 @@
-function plot_all_images(dataset_path,rfiles,dfiles)
+function plot_all_images(dataset_path,rfiles,dfiles,options)
 
 ccount = length(rfiles);
 icount = length(dfiles);
@@ -28,7 +28,7 @@ haxes = tight_subplot(rows,cols,0.01,0,0);
 for i=1:icount
   axes(haxes(i));
   if(~isempty(dfiles{i}))
-    imd = read_disparity([dataset_path dfiles{i}]);
+    imd = read_disparity([dataset_path dfiles{i}],options);
     imshow(visualize_disparity(imd));
     h=text(320,240,num2str(i));
     set(h,'Color',[1,1,0],'FontWeight','bold');

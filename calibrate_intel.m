@@ -34,8 +34,9 @@ function calib=calibrate_intel(options,calib0)
 
     %Encode params
     raw0 = calibrate_intel_s2r(calib0);
-
-
+    %raw0 = calibrate_s2r_pose(calib0);
+    %raw0 = calibrate_s2r_int(calib0);
+    
     %Minimize
     minimization_options=optimset('LargeScale','off',...
         'Algorithm','levenberg-marquardt',...
@@ -67,7 +68,8 @@ function calib=calibrate_intel(options,calib0)
 
     %Decode params
     calib = calibrate_intel_r2s(raw_final,calib0);
-
+    %calib = calibrate_r2s_pose(raw_final,calib0);
+    %calib = calibrate_r2s_int(raw_final,calib0);
 end
 
 function res=my_output_fcn(cost,optimValues,state)

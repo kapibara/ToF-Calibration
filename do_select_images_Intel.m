@@ -56,7 +56,7 @@ if(icount == 0)
 end
 
 %Show thumbnails
-plot_all_images(dataset_path,rfiles,dfiles);
+plot_all_images(dataset_path,rfiles,dfiles,options);
 plot_confidence( dataset_path, cfiles );
 
 %Ask user
