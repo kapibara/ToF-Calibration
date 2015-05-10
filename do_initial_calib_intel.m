@@ -13,8 +13,4 @@ function do_initial_calib_intel(options)
         [calib0.cR,calib0.ct]=estimate_relative(calib0);
     end
     
-    if(options.correct_depth)
-        %set the coordinates to use in regression
-        calib0.coords = [1 2];
-    end
 end

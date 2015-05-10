@@ -7,7 +7,7 @@
 function options=calibrate_options()
 
 options.display = 'iter'; %No info
-options.correct_depth = 0; %use depth correction
+options.correct_depth = 1; %use depth correction
 options.depth_in_calib = 1;%use depth measurements in calibration
 options.color_present = 1; %at least one color camera is present
 options.max_iter = 5;

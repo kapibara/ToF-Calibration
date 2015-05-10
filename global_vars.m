@@ -34,7 +34,7 @@ if(isempty(calib0))
   
 %  calib0.inputs = [];               %X coordinates in regression
 %  calib0.res = [];               %Y responce in regression
-%  calib0.h = [];             %kernel bandwidth
+  calib0.h = 20;             %kernel bandwidth
   calib0.coords = [1 2];             %coordinates from X actually used in regression
   
 end

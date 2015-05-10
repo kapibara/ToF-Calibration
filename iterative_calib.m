@@ -12,7 +12,6 @@ end
 do_process_depth_regions(options);
 
 %save all markups
-
 do_initial_calib_intel(options);
 
 fprintf('Initial Calibration - done\n');

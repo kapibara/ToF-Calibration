@@ -21,7 +21,7 @@ calib.res  = calib.res(subind);
 %find optimal bandwidth
 %calib.h = Opt_Hyp_Gauss_Ker_Reg( h0,calib.inputs,calib.res);
 
-calib.h = 20;
+
 
 end
 % 
