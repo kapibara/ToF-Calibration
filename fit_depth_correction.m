@@ -1,10 +1,16 @@
 
 function calib = fit_depth_correction(calib)
 
+%remove the previous correction estimate
+if(isfield(calib,'inputs'))
+    calib = rmfield(calib,'inputs');
+end
 %compute error accross images
 [error,depthm,imxy] = compute_full_derror(calib);
+
+d = sqrt(sum((imxy - repmat(calib.cK(1:2,3),1,size(imxy,2))).^2,1)); %distance to the image center
 %remove outliers
-valid = abs(error)<60;
+valid = abs(error)<60 & d < 100;
 
 calib.inputs = [depthm(valid) ; imxy(:,valid)];
 calib.res = error(:,valid);
@@ -16,20 +22,4 @@ subind = 1:1:size(calib.inputs,2);
 calib.inputs = calib.inputs(:,subind);
 calib.res  = calib.res(subind);
 
-%h0 = 10;
-
-%find optimal bandwidth
-%calib.h = Opt_Hyp_Gauss_Ker_Reg( h0,calib.inputs,calib.res);
-
-
-
 end
-% 
-% 
-% for i=1:length(x1)
-%     for j=1:length(x2)
-%         z(i,j) =gaussian_kern_reg([x1(i) x2(j)]',snapx,gty, h);
-%     end
-% end
-% 
-% [x,y]=meshgrid(x2,x1);

@@ -8,6 +8,7 @@ function [cost, comp]=calibrate_intel_cost_depth(calib,depth_points,depth_depth,
     cost_pl = calibrate_intel_cost_depth_plane(calib,depth_points,depth_depth);
     cost_corner = calibrate_intel_cost_depth_corners(calib,conf_grid_x,conf_grid_p);  
     
+%    cost = [(options.depth_in_calib~=0)*cost_pl/length(cost_pl); cost_corner/length(cost_corner)];
     cost = [(options.depth_in_calib~=0)*cost_pl; cost_corner];
     
     comp = zeros(length(cost),1);

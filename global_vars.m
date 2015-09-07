@@ -10,6 +10,7 @@ global depth_plane_poly depth_plane_mask depth_plane_points depth_plane_disparit
 global calib0
 global is_validation
 global cfiles conf_grid_x conf_grid_p
+global dx corner_count_x corner_count_y
 
 %max_depth_sample_count: The maximum number of disparity samples used for
 %   full calibration. Used to limit memory usage.

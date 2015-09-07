@@ -12,6 +12,7 @@ function [cost, comp ] =calibrate_intel_cost(calib,depth_points,depth_depth,conf
         
         comp = [comp; repmat('R',length(cost_rgb),1)];
     
+  %      cost = [cost_depth; cost_rgb/length(cost_rgb)];
         cost = [cost_depth; cost_rgb];
     else
         cost = cost_depth;
