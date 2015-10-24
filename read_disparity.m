@@ -12,6 +12,8 @@ else
   max_value = 65535;
 end
 
+imd(imd == max_value) = 0;
+
 %Check channel count
 if(size(imd,3) > 1)
     warning('Disparity image has multiple channels; invalid format!')

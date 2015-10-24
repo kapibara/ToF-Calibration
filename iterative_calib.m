@@ -34,7 +34,7 @@ calib = calib0;
 if(options.color_present)    
     [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
     if(options.depth_in_calib)
-        calib.sigma_dplane = std(cost(comp=='P'))*sqrt(sum(comp=='P'))/10;
+        calib.sigma_dplane = std(cost(comp=='P'))*sqrt(sum(comp=='P'))/1; %underweight depth points
     else
         calib.sigma_dplane = 1;
     end
@@ -53,25 +53,22 @@ errors(comp=='P',:) = errors(comp=='P',:)/calib.sigma_dplane;
 errors(comp=='C',:) = errors(comp=='C',:)/calib.sigma_dcorners;
 errors(comp=='R',:) = errors(comp=='R',:)/calib.sigma_rgb;
 
-tmp_depth_in_calib = options.depth_in_calib;
-options.depth_in_calib = 0;
 c = calibrate_intel(options,calib);
-options.depth_in_calib = tmp_depth_in_calib;
 
-eval = do_eval(c,options);
+%eval = do_eval(c,options);
 
 [cost,comp] = calibrate_intel_cost(c,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
 
 errors = [errors cost];
-corr = [];
-corr_points = 500:10:2000;
+%corr = [];
+%corr_points = 500:10:2000;
 
 if(options.depth_in_calib && options.correct_depth)
     
     calib = fit_depth_correction(c);
-    corr = [corr; gaussian_kern_reg(corr_points,calib.inputs,calib.res, calib.h)];
+    %corr = [corr; gaussian_kern_reg(corr_points,calib.inputs,calib.res, calib.h)];
     
-    eval = do_eval(calib,options,eval); 
+    %eval = do_eval(calib,options,eval); 
 
     [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
     errors = [errors cost];
@@ -81,15 +78,15 @@ if(options.depth_in_calib && options.correct_depth)
         
         c = calibrate_intel(options,calib);
         
-        eval = do_eval(c,options,eval); 
+        %eval = do_eval(c,options,eval); 
         
         [cost,comp] = calibrate_intel_cost(c,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
-        errors = [errors cost];
+        %errors = [errors cost];
         
         calib = fit_depth_correction(c);
-        corr = [corr; gaussian_kern_reg(corr_points,calib.inputs,calib.res, calib.h)];
+        %%corr = [corr; gaussian_kern_reg(corr_points,calib.inputs,calib.res, calib.h)];
         
-        eval = do_eval(calib,options,eval); 
+        %eval = do_eval(calib,options,eval); 
         
         if(options.color_present)
             cost = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
