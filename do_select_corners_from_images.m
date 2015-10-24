@@ -55,11 +55,11 @@ function do_select_corners_from_images(files, use_automatic,dx,corner_count_x, c
     end
   end
 
-  
+  figure(2);
+  clf;  
   figure(1);
   clf;
-  figure(2);
-  clf;
+
 
   %Extract grid for all images
   for i=fidx

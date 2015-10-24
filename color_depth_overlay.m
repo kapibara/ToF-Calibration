@@ -29,16 +29,16 @@ function color_depth_overlay(calib,rgbfile,depthfile)
     %bring front-to-front
     Inv=max(max(I))-I;
     Inv = Inv .* (I~=0);
-    I = imdilate(Inv,strel('disk',2));
+    I = imdilate(Inv,strel('disk',1));
     
     
-    figure(5)
+    figure(4)
     clf;
     h = imshow(Irgb,'Border','tight');
     hold on
     h2 = imshow(I,[],'Border','tight');set(h2,'AlphaData',0.5)
     colormap(jet)
-    figure(2)
+    figure(1)
     clf;
     h = imshow(Id/max(max(Id)),'Border','tight');
     colormap(jet)

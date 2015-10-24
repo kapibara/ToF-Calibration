@@ -1,9 +1,9 @@
 %Function from Bouguet's camera calibration toolbox.
 % Modified by Daniel Herrera C. - Adapted to the Kinect Calibration Toolbox
-function [x,X,n_sq_x,n_sq_y,ind_orig,ind_x,ind_y] = extract_grid(I,wintx,winty,fc,cc,kc,dX,dY,xr,yr,click_mode);
+function [x,X,b,n_sq_x,n_sq_y,ind_orig,ind_x,ind_y] = extract_grid(I,wintx,winty,fc,cc,kc,dX,dY,xr,yr,click_mode)
 
 if nargin < 11,
-    click_mode = 0;
+    click_mode = 1;
 end;
 
 
@@ -60,26 +60,15 @@ while need_to_click,
     
     x= [];y = [];
     figure(1); hold on;
-    for count = 1:4,
-        [xi,yi,b] = ginput(1);
-        if(b==27)
-          %Esc = skip image
-          x = [];
-          X = [];
-          return;
-        end
-        
-        [xxi] = cornerfinder([xi;yi],I,winty,wintx);
-        xi = xxi(1);
-        yi = xxi(2);
-        figure(1);
-        plot(xi,yi,'+','color',[ 1.000 0.314 0.510 ],'linewidth',2);
-        plot(xi + [wintx+.5 -(wintx+.5) -(wintx+.5) wintx+.5 wintx+.5],yi + [winty+.5 winty+.5 -(winty+.5) -(winty+.5)  winty+.5],'-','color',[ 1.000 0.314 0.510 ],'linewidth',2);
-        x = [x;xi];
-        y = [y;yi];
-        plot(x,y,'-','color',[ 1.000 0.314 0.510 ],'linewidth',2);
-        drawnow;
-    end;
+    
+    detector = @(p,I) cornerfinder(p,I,winty,wintx);
+    [x,y,b] = get4points(I,detector,wintx,winty);
+    if(b==27)
+       x = [];
+       X = [];
+       return;
+    end
+
     plot([x;x(1)],[y;y(1)],'-','color',[ 1.000 0.314 0.510 ],'linewidth',2);
     drawnow;
     hold off;
@@ -176,10 +165,13 @@ while need_to_click,
             if isempty(n_sq_x), n_sq_x = 10; end;
             n_sq_y = input('Number of squares along the Y direction ([]=10) = '); %6
             if isempty(n_sq_y), n_sq_y = 10; end; 
-            need_to_click = 0;
             
-        end;
-        
+            
+        else
+        	x = [];
+            X = [];
+            return;
+        end
         
     else
         

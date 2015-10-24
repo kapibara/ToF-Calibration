@@ -39,14 +39,14 @@ if(nargin < 2)
     use_fixed_init = false;
 end
 
-ccount = length(rgb_grid_p);
+ccount = 1;%length(rgb_grid_p);
 
 %Rext = cell(1,ccount);
 %text = cell(1,ccount);
 kc0 = zeros(1,5);
 
 %Independent camera calibration
-for k = 1:length(rgb_grid_p)
+for k = 1:ccount
   fprintf('Color camera #%d\n',k);
   
   i = find(~cellfun(@isempty,rfiles{k}),1,'first');
@@ -64,7 +64,7 @@ for k = 1:length(rgb_grid_p)
 end
 
 %Print calibration results
-for k = 1:length(rgb_grid_p)
+for k = 1:ccount
   fprintf('\nInitial calibration for camera %d:\n',k);
   
   print_calib_color(k,calib0);

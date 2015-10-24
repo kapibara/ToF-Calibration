@@ -17,17 +17,66 @@ function [pp,xx] = do_select_corners(im,corner_count_x,corner_count_y,dx,use_aut
     end
 
     if(size(im,3)==3)
+      imrgb = im;
       im = rgb2gray(im);
     end
-
+    
+    if(max(max(double(im))>15000))
+       %16bit confidence values
+       im(im>15000) = 0;
+    end
+    im= double(im)/max(max(double(im)));
     p = [];
     if(use_automatic)
-%      p=click_ima_calib_rufli_k(i,im,true,win_dx,win_dx,corner_count_x-1,corner_count_y-1);
-        p = detectCheckerboardPoints(im)';
+       figure(1);
+       if(exist('imrgb','var'))
+           imshow(imrgb);
+       else
+           imshow(im); 
+       end
+       hold on;
+       detector = @(p,I) p; 
+       
+       [x,y] = get4points(im,detector,1,1);
+       mask = poly2mask(x,y,size(im,1),size(im,2));
+       
+       im(mask==0) = 0;
+       impatch = im(min(y):max(y),min(x):max(x))/max(max(im(min(y):max(y),min(x):max(x))));
+       im(min(y):max(y),min(x):max(x)) = impatch;
+       
+       p = detectCheckerboardPoints(impatch)';
+       
+       if(~isempty(p))
+       	p(1,:) = p(1,:)+min(x);
+       	p(2,:) = p(2,:)+min(y);           
+           
+        figure(1); 
+        cla(gca);
+        imshow(im)
+        hold on
+        plot(p(1,:),p(2,:),'+r');
+        title('If the corners are good, click left mouse button, else, click right mouse button');
+        [~,~,button] = ginput(1);
+        if(button~=1)
+          p = [];
+        end
+       end
     end
-    
-    if(isempty(p))
-      [p,~,win_dx] = select_rgb_corners_im(im,dx,win_dx);
+    b = 1;
+    while(isempty(p) && b ~=27)
+       [p,~,win_dx,b] = select_rgb_corners_im(im,dx,win_dx);
+        if(~isempty(p))
+            figure(1); 
+            cla(gca);
+            imshow(im)
+            hold on
+            plot(p(1,:),p(2,:),'+r');     
+            title('If the corners are good, click left mouse button, else, click right mouse button');
+            [~,~,button] = ginput(1);
+            if(button~=1)
+                p = [];
+            end
+        end
     end
     
     if(isempty(p))

@@ -12,7 +12,7 @@ fprintf('-------------------\n');
 %        if(isempty(use_automatic))
 %            use_automatic = true;
 %        else
-use_automatic = false;
+use_automatic = true;
 %        end
 %  end
   

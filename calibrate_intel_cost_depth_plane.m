@@ -5,7 +5,7 @@ function cost = calibrate_intel_cost_depth_plane(calib,depth_plane_points,depth_
     
     base = 1;
     
-    for i=find(~cellfun(@(x) isempty(x),depth_plane_points))
+    for i=intersect(find(~cellfun(@(x) isempty(x),depth_plane_points)),find(~cellfun(@(x) isempty(x),calib.cRext)))
         
         disp_error = compute_depth_error(depth_plane_points{i},depth_plane_disparity{i},calib,calib.cRext{i},calib.ctext{i});
 

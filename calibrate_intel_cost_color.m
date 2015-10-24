@@ -4,7 +4,7 @@ function cost = calibrate_intel_cost_color(calib, conf_grid_x, rgb_grid_p)
     
     base = 1;
 
-    for i=find(~cellfun(@(x) isempty(x),rgb_grid_p))
+    for i=intersect(find(~cellfun(@(x) isempty(x),rgb_grid_p)),find(~cellfun(@(x) isempty(x),conf_grid_x)))
         X = conf_grid_x{i};
         
         R = calib.cR*calib.cRext{i};
