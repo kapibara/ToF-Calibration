@@ -57,9 +57,9 @@ c = calibrate_intel(options,calib);
 
 %eval = do_eval(c,options);
 
-[cost,comp] = calibrate_intel_cost(c,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
+%[cost,comp] = calibrate_intel_cost(c,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
 
-errors = [errors cost];
+%errors = [errors cost];
 %corr = [];
 %corr_points = 500:10:2000;
 
@@ -70,8 +70,8 @@ if(options.depth_in_calib && options.correct_depth)
     
     %eval = do_eval(calib,options,eval); 
 
-    [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
-    errors = [errors cost];
+    %[cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
+    %errors = [errors cost];
     
     
     while(iter < options.max_iter-1)
@@ -80,11 +80,11 @@ if(options.depth_in_calib && options.correct_depth)
         
         %eval = do_eval(c,options,eval); 
         
-        [cost,comp] = calibrate_intel_cost(c,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
+        %[cost,comp] = calibrate_intel_cost(c,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options,rgb_grid_p{1});
         %errors = [errors cost];
         
         calib = fit_depth_correction(c);
-        %%corr = [corr; gaussian_kern_reg(corr_points,calib.inputs,calib.res, calib.h)];
+        %corr = [corr; gaussian_kern_reg(corr_points,calib.inputs,calib.res, calib.h)];
         
         %eval = do_eval(calib,options,eval); 
         
@@ -94,9 +94,9 @@ if(options.depth_in_calib && options.correct_depth)
             [cost,comp] = calibrate_intel_cost(calib,depth_plane_points,depth_plane_disparity,conf_grid_x,conf_grid_p,options);
         end
 
-        if(options.eval)
+        %if(options.eval)
             errors = [errors cost];
-        end
+        %end
         
         iter = iter +1;
     end

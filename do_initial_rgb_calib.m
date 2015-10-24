@@ -39,7 +39,11 @@ if(nargin < 2)
     use_fixed_init = false;
 end
 
-ccount = 1;%length(rgb_grid_p);
+if(~isempty(rgb_grid_p))
+    ccount = 1;%length(rgb_grid_p);
+else
+    ccount = 0;
+end
 
 %Rext = cell(1,ccount);
 %text = cell(1,ccount);

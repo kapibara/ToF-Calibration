@@ -15,3 +15,5 @@ for i=1:length(indices)
   error = p-rgb_grid_p{indices(i)};
   cost = [cost; reshape(error,[numel(error),1])];  
 end
+
+end
