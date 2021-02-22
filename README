@@ -18,7 +18,7 @@ Author: Alina Kuznetsova
 =================================News===========================================
 
 - The test data collected using Intel Creative Depth Sensor can be downloaded from
-here: https://dl.dropboxusercontent.com/u/25197257/data.zip
+here: http://www.tnt.uni-hannover.de/en/project/handposerecognition/data.zip
 
 - The corner detector is switched to the automatic MATLAB corner detector - 
 now you only need to select the regions where the checkerboard is and not the 
